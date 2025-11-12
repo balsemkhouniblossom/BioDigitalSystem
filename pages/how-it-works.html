@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How It Works - Bio-Digital System</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <style>
+        .workflow-section {
+            padding: 80px 20px;
+            background: white;
+        }
+
+        .workflow-stages {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stage-card {
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.1) 0%, rgba(52, 152, 219, 0.1) 100%);
+            border: 2px solid transparent;
+            border-radius: 15px;
+            padding: 2rem;
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .stage-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, #2ecc71, #3498db);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .stage-card:hover {
+            border-color: #2ecc71;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(46, 204, 113, 0.2);
+        }
+
+        .stage-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .stage-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: white;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .stage-title {
+            font-size: 1.3rem;
+            color: var(--dark-text);
+            margin-bottom: 0.8rem;
+        }
+
+        .stage-description {
+            color: var(--light-text);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .stage-details {
+            margin-top: 1rem;
+            display: none;
+            padding-top: 1rem;
+            border-top: 2px solid rgba(46, 204, 113, 0.2);
+        }
+
+        .stage-card.active .stage-details {
+            display: block;
+            animation: slide-up 0.3s ease-out;
+        }
+
+        .details-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .details-list li {
+            padding: 0.5rem 0;
+            color: var(--light-text);
+            font-size: 0.9rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .details-list li::before {
+            content: '✓';
+            color: #2ecc71;
+            font-weight: bold;
+        }
+
+        .interactive-diagram {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 15px;
+            margin-bottom: 3rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .diagram-svg {
+            width: 100%;
+            max-width: 900px;
+            height: auto;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .flow-arrow {
+            stroke: #3498db;
+            stroke-width: 2;
+            fill: none;
+            marker-end: url(#arrowhead);
+        }
+
+        .stage-box {
+            fill: url(#stageGradient);
+            stroke: #2ecc71;
+            stroke-width: 2;
+        }
+
+        .process-flow {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .process-item {
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+            padding: 1rem;
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.05) 0%, rgba(52, 152, 219, 0.05) 100%);
+            border-radius: 10px;
+            border-left: 4px solid #2ecc71;
+        }
+
+        .process-item h4 {
+            margin-bottom: 0.5rem;
+            color: var(--dark-text);
+        }
+
+        .process-item p {
+            font-size: 0.85rem;
+            color: var(--light-text);
+        }
+
+        .process-arrow {
+            display: none;
+            font-size: 2rem;
+            color: #2ecc71;
+        }
+
+        @media (min-width: 640px) {
+            .process-arrow {
+                display: block;
+            }
+        }
+
+        .technical-specs {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ecf0f1 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 3rem;
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .spec-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .spec-item h4 {
+            color: #2ecc71;
+            margin-bottom: 0.5rem;
+        }
+
+        .spec-value {
+            font-size: 0.9rem;
+            color: var(--light-text);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-icon">🌿</span>
+                <span>BioDigital System</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="how-it-works.html" class="nav-link">How It Works</a></li>
+                <li><a href="subsystems.html" class="nav-link">Subsystems</a></li>
+                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                <li><a href="sustainability.html" class="nav-link">Sustainability</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" style="margin-bottom: 2rem;">
+        <div class="hero-content" style="grid-template-columns: 1fr; text-align: center;">
+            <div class="hero-text">
+                <h1 class="hero-title">How It Works</h1>
+                <p class="hero-description">
+                    Discover the six-stage workflow that transforms polluted air into clean oxygen 
+                    and generates fresh water while powering a sustainable ecosystem.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Diagram -->
+    <section class="workflow-section">
+        <div class="container">
+            <h2 class="section-title">The 6-Stage Workflow</h2>
+            
+            <div class="interactive-diagram">
+                <svg class="diagram-svg" viewBox="0 0 1000 300" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="stageGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#2ecc71;stop-opacity:0.2" />
+                            <stop offset="100%" style="stop-color:#3498db;stop-opacity:0.2" />
+                        </linearGradient>
+                        <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#3498db" />
+                        </marker>
+                    </defs>
+
+                    <!-- Stage boxes -->
+                    <rect x="30" y="100" width="130" height="100" rx="10" class="stage-box" />
+                    <text x="95" y="140" text-anchor="middle" font-weight="bold" fill="#2c3e50">Stage 1</text>
+                    <text x="95" y="160" text-anchor="middle" font-size="12" fill="#7f8c8d">Air Intake</text>
+
+                    <!-- Arrows -->
+                    <path d="M 160 150 L 190 150" class="flow-arrow" />
+
+                    <rect x="190" y="100" width="130" height="100" rx="10" class="stage-box" />
+                    <text x="255" y="140" text-anchor="middle" font-weight="bold" fill="#2c3e50">Stage 2</text>
+                    <text x="255" y="160" text-anchor="middle" font-size="12" fill="#7f8c8d">Absorption</text>
+
+                    <path d="M 320 150 L 350 150" class="flow-arrow" />
+
+                    <rect x="350" y="100" width="130" height="100" rx="10" class="stage-box" />
+                    <text x="415" y="140" text-anchor="middle" font-weight="bold" fill="#2c3e50">Stage 3</text>
+                    <text x="415" y="160" text-anchor="middle" font-size="12" fill="#7f8c8d">Water Harvest</text>
+
+                    <path d="M 480 150 L 510 150" class="flow-arrow" />
+
+                    <rect x="510" y="100" width="130" height="100" rx="10" class="stage-box" />
+                    <text x="575" y="140" text-anchor="middle" font-weight="bold" fill="#2c3e50">Stage 4</text>
+                    <text x="575" y="160" text-anchor="middle" font-size="12" fill="#7f8c8d">Purification</text>
+
+                    <path d="M 640 150 L 670 150" class="flow-arrow" />
+
+                    <rect x="670" y="100" width="130" height="100" rx="10" class="stage-box" />
+                    <text x="735" y="140" text-anchor="middle" font-weight="bold" fill="#2c3e50">Stage 5</text>
+                    <text x="735" y="160" text-anchor="middle" font-size="12" fill="#7f8c8d">Irrigation</text>
+
+                    <path d="M 800 150 L 830 150" class="flow-arrow" />
+
+                    <rect x="830" y="100" width="130" height="100" rx="10" class="stage-box" />
+                    <text x="895" y="140" text-anchor="middle" font-weight="bold" fill="#2c3e50">Stage 6</text>
+                    <text x="895" y="160" text-anchor="middle" font-size="12" fill="#7f8c8d">Community</text>
+
+                    <!-- Input/Output labels -->
+                    <text x="95" y="50" text-anchor="middle" font-size="14" fill="#2ecc71" font-weight="bold">💨 Polluted Air</text>
+                    <text x="895" y="240" text-anchor="middle" font-size="14" fill="#3498db" font-weight="bold">♻️ Biomass + Community</text>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Stage Cards -->
+    <section class="workflow-section" style="background: #f8f9fa;">
+        <div class="container">
+            <h2 class="section-title">Stage Details</h2>
+            
+            <div class="workflow-stages">
+                <!-- Stage 1 -->
+                <div class="stage-card scroll-in" onclick="toggleStageDetails(this)">
+                    <div class="stage-number">1</div>
+                    <h3 class="stage-title">Air Intake & Passive Filtration</h3>
+                    <p class="stage-description">
+                        The system begins by drawing polluted air through a moss layer that naturally captures PM2.5, PM10, and acidic gases.
+                    </p>
+                    <div class="stage-details">
+                        <ul class="details-list">
+                            <li>Moss layer captures 95% of PM2.5</li>
+                            <li>Passive filtration (no energy required)</li>
+                            <li>Acidic gas neutralization</li>
+                            <li>Pre-filtered air moves to next stage</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Stage 2 -->
+                <div class="stage-card scroll-in" onclick="toggleStageDetails(this)">
+                    <div class="stage-number">2</div>
+                    <h3 class="stage-title">Active Absorption & Photosynthesis</h3>
+                    <p class="stage-description">
+                        Algae and bio-organisms actively absorb CO₂ and release oxygen through photosynthesis.
+                    </p>
+                    <div class="stage-details">
+                        <ul class="details-list">
+                            <li>CO₂ conversion to O₂</li>
+                            <li>Algae grows as biomass</li>
+                            <li>Nutrient cycling maintained</li>
+                            <li>Air quality improves significantly</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Stage 3 -->
+                <div class="stage-card scroll-in" onclick="toggleStageDetails(this)">
+                    <div class="stage-number">3</div>
+                    <h3 class="stage-title">Atmospheric Water Harvesting</h3>
+                    <p class="stage-description">
+                        Peltier module condenses water vapor from humid air in a thermoelectric process.
+                    </p>
+                    <div class="stage-details">
+                        <ul class="details-list">
+                            <li>Peltier condensation (70-150L/day)</li>
+                            <li>Solar-powered heating/cooling</li>
+                            <li>Collects atmospheric moisture</li>
+                            <li>Initial water collection complete</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Stage 4 -->
+                <div class="stage-card scroll-in" onclick="toggleStageDetails(this)">
+                    <div class="stage-number">4</div>
+                    <h3 class="stage-title">Water Purification & Mineralization</h3>
+                    <p class="stage-description">
+                        Multi-stage purification with UV sterilization and mineral enrichment using phosphate rock.
+                    </p>
+                    <div class="stage-details">
+                        <ul class="details-list">
+                            <li>3-stage mechanical filtration</li>
+                            <li>UV-C sterilization (kills 99.9%)</li>
+                            <li>Phosphate rock mineralization</li>
+                            <li>Safe for irrigation & reuse</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Stage 5 -->
+                <div class="stage-card scroll-in" onclick="toggleStageDetails(this)">
+                    <div class="stage-number">5</div>
+                    <h3 class="stage-title">Smart Irrigation & Auto-Regeneration</h3>
+                    <p class="stage-description">
+                        Micro-pump controlled by IoT sensors distributes water for bio-layer health and external gardens.
+                    </p>
+                    <div class="stage-details">
+                        <ul class="details-list">
+                            <li>Humidity-based irrigation</li>
+                            <li>Water level monitoring</li>
+                            <li>Nutrient medium maintenance</li>
+                            <li>Sustainable water loop</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Stage 6 -->
+                <div class="stage-card scroll-in" onclick="toggleStageDetails(this)">
+                    <div class="stage-number">6</div>
+                    <h3 class="stage-title">Community Interaction & Circular Reuse</h3>
+                    <p class="stage-description">
+                        QR codes enable citizen engagement while harvested biomass becomes bio-fertilizer for the community.
+                    </p>
+                    <div class="stage-details">
+                        <ul class="details-list">
+                            <li>QR code citizen science data</li>
+                            <li>Biomass harvesting monthly</li>
+                            <li>Bio-fertilizer production</li>
+                            <li>Complete circular economy</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Flow -->
+    <section class="workflow-section">
+        <div class="container">
+            <h2 class="section-title">Complete Process Overview</h2>
+            
+            <div class="process-flow">
+                <div class="process-item">
+                    <h4>🌫️ Input</h4>
+                    <p>Polluted air: CO₂ 410ppm, PM2.5 35µg/m³, SO₂ detected</p>
+                </div>
+                <div class="process-arrow">→</div>
+                <div class="process-item">
+                    <h4>🔄 Processing</h4>
+                    <p>6 biological & technological stages working in harmony</p>
+                </div>
+                <div class="process-arrow">→</div>
+                <div class="process-item">
+                    <h4>✅ Output</h4>
+                    <p>Clean air: O₂ +2%, water 150L/day, fertilizer 5kg/month</p>
+                </div>
+            </div>
+
+            <!-- Technical Specifications -->
+            <div class="technical-specs">
+                <h3>Technical Performance Metrics</h3>
+                <div class="specs-grid">
+                    <div class="spec-item">
+                        <h4>Air Purification</h4>
+                        <p class="spec-value">50,000 m³/month air processed</p>
+                    </div>
+                    <div class="spec-item">
+                        <h4>Water Generation</h4>
+                        <p class="spec-value">150 liters/day generated</p>
+                    </div>
+                    <div class="spec-item">
+                        <h4>CO₂ Capture</h4>
+                        <p class="spec-value">8,500 kg/month CO₂ removed</p>
+                    </div>
+                    <div class="spec-item">
+                        <h4>Energy Source</h4>
+                        <p class="spec-value">100% solar powered</p>
+                    </div>
+                    <div class="spec-item">
+                        <h4>Biomass Production</h4>
+                        <p class="spec-value">5 kg/month bio-fertilizer</p>
+                    </div>
+                    <div class="spec-item">
+                        <h4>System Uptime</h4>
+                        <p class="spec-value">99.5% operational reliability</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>BioDigital System</h4>
+                    <p>Creating sustainable solutions for urban air and water regeneration.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>Email: info@biodigital.com</p>
+                    <p>Phone: +1 (555) 123-4567</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Bio-Digital System. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script>
+        function toggleStageDetails(card) {
+            // Remove active class from all cards
+            document.querySelectorAll('.stage-card').forEach(c => c.classList.remove('active'));
+            // Add active class to clicked card
+            card.classList.add('active');
+        }
+
+        // Initialize first card as active on page load
+        window.addEventListener('load', function() {
+            document.querySelector('.stage-card').classList.add('active');
+        });
+    </script>
+</body>
+</html>

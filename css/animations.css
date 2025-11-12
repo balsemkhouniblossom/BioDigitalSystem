@@ -1,0 +1,517 @@
+/* ============================================
+   ANIMATIONS - Bio-Digital System Website
+   ============================================ */
+
+/* ============================================
+   KEYFRAME ANIMATIONS
+   ============================================ */
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px) translateX(0px);
+    }
+    25% {
+        transform: translateY(-20px) translateX(10px);
+    }
+    50% {
+        transform: translateY(-40px) translateX(-10px);
+    }
+    75% {
+        transform: translateY(-20px) translateX(20px);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.1;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.1);
+        opacity: 0.15;
+    }
+}
+
+@keyframes slide-in-left {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slide-in-right {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slide-up {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes scale-in {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(46, 204, 113, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(46, 204, 113, 0.8);
+    }
+}
+
+@keyframes airflow {
+    0% {
+        stroke-dashoffset: 10;
+    }
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes water-drop {
+    0%, 100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(10px);
+        opacity: 0.5;
+    }
+}
+
+@keyframes moss-grow {
+    0% {
+        transform: scaleY(0.8);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scaleY(1);
+        opacity: 1;
+    }
+}
+
+@keyframes algae-photosynthesis {
+    0%, 100% {
+        filter: brightness(1);
+    }
+    50% {
+        filter: brightness(1.2);
+    }
+}
+
+@keyframes counter {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes flip {
+    0% {
+        transform: rotateY(0deg);
+    }
+    100% {
+        transform: rotateY(360deg);
+    }
+}
+
+@keyframes shimmer {
+    0%, 100% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+/* ============================================
+   ANIMATION CLASSES
+   ============================================ */
+
+.animate-slide-in {
+    animation: slide-in-left 0.8s ease-out;
+}
+
+.animate-fade-in {
+    animation: fade-in 0.8s ease-out 0.2s both;
+}
+
+.animate-fade-in-delay {
+    animation: fade-in 0.8s ease-out 0.4s both;
+}
+
+.animate-scale-in {
+    animation: scale-in 0.8s ease-out 0.6s both;
+}
+
+.animate-stat-card {
+    animation: slide-up 0.6s ease-out both;
+}
+
+.animate-stat-card:nth-child(1) {
+    animation-delay: 0.2s;
+}
+
+.animate-stat-card:nth-child(2) {
+    animation-delay: 0.4s;
+}
+
+.animate-stat-card:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+.animate-stat-card:nth-child(4) {
+    animation-delay: 0.8s;
+}
+
+/* ============================================
+   SVG ANIMATIONS
+   ============================================ */
+
+.air-intake-animate {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.airflow-line {
+    animation: airflow 2s linear infinite;
+    stroke-dasharray: 5;
+}
+
+.moss-pulse {
+    animation: moss-grow 1.5s ease-out;
+}
+
+.algae-grow {
+    animation: algae-photosynthesis 3s ease-in-out infinite;
+}
+
+.water-condense {
+    animation: airflow 3s linear infinite;
+    stroke-dasharray: 5;
+}
+
+.water-drop {
+    animation: water-drop 2s ease-in-out infinite;
+}
+
+.water-drop-delay {
+    animation-delay: 0.5s;
+}
+
+.solar-glow {
+    animation: glow 2s ease-in-out infinite;
+}
+
+.system-border {
+    animation: rotate 20s linear infinite;
+    opacity: 0.5;
+}
+
+/* ============================================
+   INTERACTIVE ANIMATIONS
+   ============================================ */
+
+.feature-card {
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+    animation: bounce 0.6s ease-in-out;
+}
+
+.btn {
+    transition: all 0.3s ease;
+}
+
+.btn:active {
+    transform: scale(0.95) !important;
+}
+
+/* ============================================
+   LOADING ANIMATIONS
+   ============================================ */
+
+.spinner {
+    border: 4px solid rgba(46, 204, 113, 0.1);
+    border-top: 4px solid var(--primary-green);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: rotate 1s linear infinite;
+}
+
+.pulse-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--primary-green);
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* ============================================
+   SCROLL ANIMATIONS
+   ============================================ */
+
+.scroll-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease-out;
+}
+
+.scroll-in.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ============================================
+   CARD ANIMATIONS
+   ============================================ */
+
+.card-enter {
+    animation: scale-in 0.4s ease-out;
+}
+
+.card-exit {
+    animation: scale-in 0.4s ease-out reverse;
+}
+
+/* ============================================
+   TEXT ANIMATIONS
+   ============================================ */
+
+.text-reveal {
+    overflow: hidden;
+}
+
+.text-reveal-content {
+    animation: slide-up 0.6s ease-out;
+}
+
+/* ============================================
+   GRADIENT ANIMATIONS
+   ============================================ */
+
+.gradient-animate {
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;
+}
+
+@keyframes gradientShift {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+/* ============================================
+   CHART/METRIC ANIMATIONS
+   ============================================ */
+
+.metric-bar {
+    animation: slide-in-left 0.8s ease-out;
+}
+
+.metric-value {
+    animation: counter 1s ease-out;
+}
+
+.chart-line {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: drawLine 2s ease-in-out forwards;
+}
+
+@keyframes drawLine {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+/* ============================================
+   HOVER EFFECTS
+   ============================================ */
+
+.hover-lift {
+    transition: all 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.hover-grow {
+    transition: all 0.3s ease;
+}
+
+.hover-grow:hover {
+    transform: scale(1.05);
+}
+
+.hover-color {
+    transition: color 0.3s ease;
+}
+
+.hover-color:hover {
+    color: var(--primary-green);
+}
+
+/* ============================================
+   STAGGER ANIMATIONS
+   ============================================ */
+
+.stagger-child {
+    opacity: 0;
+    animation: fade-in 0.6s ease-out forwards;
+}
+
+.stagger-child:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.stagger-child:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.stagger-child:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.stagger-child:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+.stagger-child:nth-child(5) {
+    animation-delay: 0.5s;
+}
+
+.stagger-child:nth-child(6) {
+    animation-delay: 0.6s;
+}
+
+/* ============================================
+   TRANSITION UTILITIES
+   ============================================ */
+
+.transition-smooth {
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.transition-fast {
+    transition: all 0.15s ease;
+}
+
+.transition-slow {
+    transition: all 0.6s ease;
+}
+
+/* ============================================
+   RESPONSIVE ANIMATION ADJUSTMENTS
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .animate-slide-in {
+        animation: slide-in-left 0.6s ease-out;
+    }
+
+    .hero-svg {
+        max-width: 300px;
+    }
+
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0px);
+        }
+        50% {
+            transform: translateY(-15px);
+        }
+    }
+}

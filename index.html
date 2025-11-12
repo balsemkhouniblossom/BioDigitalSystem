@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bio-Digital Air Purification & Water Regeneration System</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-icon">🌿</span>
+                <span>BioDigital System</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="pages/how-it-works.html" class="nav-link">How It Works</a></li>
+                <li><a href="pages/subsystems.html" class="nav-link">Subsystems</a></li>
+                <li><a href="pages/dashboard.html" class="nav-link">Dashboard</a></li>
+                <li><a href="pages/sustainability.html" class="nav-link">Sustainability</a></li>
+                <li><a href="pages/about.html" class="nav-link">About</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-background">
+            <div class="animated-bg">
+                <div class="airflow-particle"></div>
+                <div class="water-droplet"></div>
+                <div class="moss-layer"></div>
+            </div>
+        </div>
+
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title animate-slide-in">
+                    Bio-Digital Air Purification & Water Regeneration System
+                </h1>
+                <p class="hero-tagline animate-fade-in">
+                    A living, self-sustaining lung for industrial cities.
+                </p>
+                <p class="hero-description animate-fade-in-delay">
+                    Harness the power of nature and technology to clean air, regenerate water, and create sustainable communities.
+                </p>
+                
+                <div class="cta-buttons animate-scale-in">
+                    <a href="pages/dashboard.html" class="btn btn-primary">Explore Dashboard</a>
+                    <a href="pages/how-it-works.html" class="btn btn-secondary">Learn How It Works</a>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <svg class="hero-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Animated system visualization -->
+                    <defs>
+                        <linearGradient id="mossGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#2ecc71;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#27ae60;stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="waterGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#3498db;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#2980b9;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    
+                    <!-- Main system container -->
+                    <rect x="50" y="50" width="300" height="300" rx="20" fill="none" stroke="#34495e" stroke-width="2" class="system-border"/>
+                    
+                    <!-- Air intake (top) -->
+                    <circle cx="200" cy="80" r="25" fill="#3498db" class="air-intake-animate"/>
+                    <path d="M 200 80 L 200 130" stroke="#3498db" stroke-width="3" stroke-dasharray="5,5" class="airflow-line"/>
+                    
+                    <!-- Moss layer (upper section) -->
+                    <ellipse cx="200" cy="150" rx="80" ry="30" fill="url(#mossGradient)" class="moss-pulse"/>
+                    <text x="200" y="155" text-anchor="middle" font-size="12" fill="white" font-weight="bold">Moss Layer</text>
+                    
+                    <!-- Algae layer (middle section) -->
+                    <ellipse cx="200" cy="220" rx="80" ry="35" fill="#16a085" class="algae-grow"/>
+                    <text x="200" y="225" text-anchor="middle" font-size="12" fill="white" font-weight="bold">Algae</text>
+                    
+                    <!-- Water condensation (bottom) -->
+                    <path d="M 140 280 Q 150 290 160 280 Q 170 290 180 280 Q 190 290 200 280 Q 210 290 220 280 Q 230 290 240 280 Q 250 290 260 280" 
+                          stroke="#3498db" stroke-width="3" fill="none" class="water-condense"/>
+                    <circle cx="140" cy="285" r="4" fill="#3498db" class="water-drop"/>
+                    <circle cx="200" cy="295" r="3" fill="#3498db" class="water-drop water-drop-delay"/>
+                    <circle cx="260" cy="280" r="4" fill="#3498db" class="water-drop"/>
+                    
+                    <!-- Energy indicators (solar) -->
+                    <circle cx="100" cy="100" r="15" fill="none" stroke="#f1c40f" stroke-width="2" class="solar-glow"/>
+                    <text x="100" y="105" text-anchor="middle" font-size="20">☀</text>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="stats-container">
+            <div class="stat-card animate-stat-card">
+                <div class="stat-value" data-value="50000">0</div>
+                <div class="stat-unit">m³/month</div>
+                <div class="stat-label">Air Purified</div>
+            </div>
+            <div class="stat-card animate-stat-card">
+                <div class="stat-value" data-value="150">0</div>
+                <div class="stat-unit">Liters/day</div>
+                <div class="stat-label">Water Generated</div>
+            </div>
+            <div class="stat-card animate-stat-card">
+                <div class="stat-value" data-value="12">0</div>
+                <div class="stat-unit">panels</div>
+                <div class="stat-label">Active Systems</div>
+            </div>
+            <div class="stat-card animate-stat-card">
+                <div class="stat-value" data-value="8500">0</div>
+                <div class="stat-unit">kg/month</div>
+                <div class="stat-label">CO₂ Captured</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Overview Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Key Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🌱</div>
+                    <h3>Bio-Filtration</h3>
+                    <p>Living moss and algae layers naturally capture pollutants and convert CO₂ to oxygen.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💧</div>
+                    <h3>Water Generation</h3>
+                    <p>Atmospheric water harvesting technology produces fresh water from humid air.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Smart Energy</h3>
+                    <p>Solar-powered system with intelligent battery management and efficiency optimization.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Real-Time Monitoring</h3>
+                    <p>IoT sensors track air quality, water levels, and system health in real-time.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">♻️</div>
+                    <h3>Circular Economy</h3>
+                    <p>Biomass collected and repurposed as sustainable bio-fertilizer for communities.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <h3>Community Engagement</h3>
+                    <p>QR codes enable citizen science participation and environmental awareness.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call-to-Action Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Transform Your City?</h2>
+            <p>Join the movement toward sustainable, self-sustaining urban ecosystems.</p>
+            <div class="cta-buttons-main">
+                <button class="btn btn-primary" id="requestDemoBtn">Request a Demo</button>
+                <button class="btn btn-secondary" id="partnerBtn">Become a Partner</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>BioDigital System</h4>
+                    <p>Creating sustainable solutions for urban air and water regeneration.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="pages/how-it-works.html">How It Works</a></li>
+                        <li><a href="pages/dashboard.html">Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>Email: info@biodigital.com</p>
+                    <p>Phone: +1 (555) 123-4567</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Bio-Digital System. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <div id="demoModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Request a Demo</h2>
+            <form id="demoForm">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <input type="text" placeholder="Organization">
+                <textarea placeholder="Tell us about your interest..." rows="4"></textarea>
+                <button type="submit" class="btn btn-primary">Submit Request</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="partnerModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Become a Partner</h2>
+            <form id="partnerForm">
+                <input type="text" placeholder="Company Name" required>
+                <input type="email" placeholder="Contact Email" required>
+                <input type="tel" placeholder="Phone Number">
+                <select required>
+                    <option value="">Select Partnership Type</option>
+                    <option value="distribution">Distribution Partner</option>
+                    <option value="technology">Technology Partner</option>
+                    <option value="research">Research Collaborator</option>
+                    <option value="community">Community Advocate</option>
+                </select>
+                <textarea placeholder="Tell us about your partnership interest..." rows="4"></textarea>
+                <button type="submit" class="btn btn-primary">Submit Partnership</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subsystems - Bio-Digital System</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <style>
+        .subsystem-section {
+            padding: 80px 20px;
+            background: white;
+        }
+
+        .subsystem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .subsystem-card {
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.05) 0%, rgba(52, 152, 219, 0.05) 100%);
+            border: 2px solid transparent;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .subsystem-card:hover {
+            border-color: #2ecc71;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(46, 204, 113, 0.2);
+        }
+
+        .subsystem-header {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            color: white;
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .subsystem-icon {
+            font-size: 2.5rem;
+        }
+
+        .subsystem-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .subsystem-content {
+            padding: 2rem;
+        }
+
+        .subsystem-description {
+            color: var(--light-text);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .component-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .component-item {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(46, 204, 113, 0.1);
+            display: flex;
+            gap: 0.8rem;
+            align-items: flex-start;
+        }
+
+        .component-item:last-child {
+            border-bottom: none;
+        }
+
+        .component-icon {
+            color: #2ecc71;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .component-text {
+            flex: 1;
+        }
+
+        .component-name {
+            font-weight: 600;
+            color: var(--dark-text);
+            font-size: 0.95rem;
+        }
+
+        .component-spec {
+            font-size: 0.85rem;
+            color: var(--light-text);
+        }
+
+        .expandable-section {
+            background: white;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .expandable-header {
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.1) 0%, rgba(52, 152, 219, 0.1) 100%);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .expandable-header:hover {
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.15) 0%, rgba(52, 152, 219, 0.15) 100%);
+        }
+
+        .expandable-header.active {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            color: white;
+        }
+
+        .expandable-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .expandable-title-icon {
+            font-size: 1.8rem;
+        }
+
+        .expand-toggle {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .expandable-header.active .expand-toggle {
+            transform: rotate(180deg);
+        }
+
+        .expandable-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 2rem;
+        }
+
+        .expandable-content.active {
+            max-height: 1000px;
+            padding: 2rem;
+        }
+
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .specs-table th,
+        .specs-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .specs-table th {
+            background: rgba(46, 204, 113, 0.1);
+            font-weight: 600;
+            color: var(--dark-text);
+        }
+
+        .specs-table td {
+            color: var(--light-text);
+        }
+
+        .specs-table tr:hover {
+            background: rgba(46, 204, 113, 0.05);
+        }
+
+        .feature-badge {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            background: #2ecc71;
+            color: white;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin: 0.2rem;
+        }
+
+        .feature-badge.secondary {
+            background: #3498db;
+        }
+
+        .feature-badge.tertiary {
+            background: #f39c12;
+        }
+
+        .performance-metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(46, 204, 113, 0.1);
+        }
+
+        .performance-metric:last-child {
+            border-bottom: none;
+        }
+
+        .metric-bar {
+            flex: 1;
+            margin: 0 1rem;
+            height: 8px;
+            background: #ecf0f1;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .metric-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #2ecc71, #27ae60);
+            border-radius: 4px;
+        }
+
+        .metric-percentage {
+            font-weight: 600;
+            color: #2ecc71;
+            min-width: 40px;
+            text-align: right;
+        }
+
+        @media (max-width: 768px) {
+            .subsystem-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .specs-table {
+                font-size: 0.9rem;
+            }
+
+            .specs-table th,
+            .specs-table td {
+                padding: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-icon">🌿</span>
+                <span>BioDigital System</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="how-it-works.html" class="nav-link">How It Works</a></li>
+                <li><a href="subsystems.html" class="nav-link">Subsystems</a></li>
+                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                <li><a href="sustainability.html" class="nav-link">Sustainability</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" style="margin-bottom: 2rem;">
+        <div class="hero-content" style="grid-template-columns: 1fr; text-align: center;">
+            <div class="hero-text">
+                <h1 class="hero-title">Technical Specifications</h1>
+                <p class="hero-description">
+                    Deep dive into the subsystems and components that power the Bio-Digital 
+                    Air Purification & Water Regeneration System.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Subsystems Overview -->
+    <section class="subsystem-section">
+        <div class="container">
+            <h2 class="section-title">Core Subsystems</h2>
+            <div class="subsystem-grid">
+                <!-- Biological Filtration -->
+                <div class="subsystem-card scroll-in">
+                    <div class="subsystem-header">
+                        <div class="subsystem-icon">🌿</div>
+                        <div class="subsystem-title">Biological Filtration</div>
+                    </div>
+                    <div class="subsystem-content">
+                        <p class="subsystem-description">
+                            Living moss and algae layers provide natural, self-sustaining air purification.
+                        </p>
+                        <ul class="component-list">
+                            <li class="component-item">
+                                <span class="component-icon">●</span>
+                                <div class="component-text">
+                                    <div class="component-name">Moss Layer</div>
+                                    <div class="component-spec">Captures PM2.5, PM10, pollutants</div>
+                                </div>
+                            </li>
+                            <li class="component-item">
+                                <span class="component-icon">●</span>
+                                <div class="component-text">
+                                    <div class="component-name">Algae Culture</div>
+                                    <div class="component-spec">CO₂ conversion, O₂ generation</div>
+                                </div>
+                            </li>
+                            <li class="component-item">
+                                <span class="component-icon">●</span>
+                                <div class="component-text">
+                                    <div class="component-name">Nutrient Medium</div>
+                                    <div class="component-spec">Organic substrate, phosphate rock</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Structural & Mechanical -->
+                <div class="subsystem-card scroll-in">
+                    <div class="subsystem-header">
+                        <div class="subsystem-icon">🏗️</div>
+                        <div class="subsystem-title">Structural & Mechanical</div>
+                    </div>
+                    <div class="subsystem-content">
+                        <p class="subsystem-description">
+                            Durable frame, irrigation, and thermal management systems.
+                        </p>
+                        <ul class="component-list">
+                            <li class="component-item">
+                                <span class="component-icon">●</span>
+                                <div class="component-text">
+                                    <div class="component-name">Aluminum Frame</div>
+                                    <div class="component-spec">Weather-resistant, 10-year lifespan</div>
+                                </div>
+                            </li>
+                            <li class="component-item">
+                                <span class="component-icon">●</span>
+                                <div class="component-text">
+                                    <div class="component-name">Drip Irrigation</div>
+                                    <div class="component-spec">Micro-pump, 12V solenoid valve</div>
+                                </div>
+                            </li>
+                            <li class="component-item">
+                                <span class="component-icon">●</span>
+                                <div class="component-text">
+                                    <div class="component-name">Insulation</div>
+                                    <div class="component-spec">Thermal protection, condensation trays</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Water Systems -->
+                <div class="subsystem-card scroll-in">
+                    <div class="subsystem-header">
+                        <div class="subsystem-icon">💧</div>
+                        <div class="subsystem-title">Water Systems</div>
+                    </div>
+                    <div class="subsystem-content">
+                        <p class="subsystem-description">
+                            Advanced condensation and multi-stage water purification.
+                        </p>
+                        <ul class="component-list">
+                            <li class="component-item">
+                                <span class="component-icon">●</span>
+                                <div class="component-text">
+                                    <div class="component-name">Peltier Module</div>
+                                    <div class="component-spec">TEC1-12706, thermoelectric cooling</div>
+                                </div>
+                            </li>
+                            <li class="component-item">
+                                <span class="component-icon">●</span>
+                                <div class="component-text">
+                                    <div class="component-name">Multi-Stage Filters</div>
+                                    <div class="component-spec">Sediment, carbon, membrane filters</div>
+                                </div>
+                            </li>
+                            <li class="component-item">
+                                <span class="component-icon">●</span>
+                                <div class="component-text">
+                                    <div class="component-name">UV-C Sterilizer</div>
+                                    <div class="component-spec">254nm wavelength, 99.9% sterilization</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Energy & Power -->
+                <div class="subsystem-card scroll-in">
+                    <div class="subsystem-header">
+                        <div class="subsystem-icon">⚡</div>
+                        <div class="subsystem-title">Energy & Power</div>
+                    </div>
+                    <div class="subsystem-content">
+                        <p class="subsystem-description">
+                            Solar-powered system with intelligent energy management.
+                        </p>
+                        <ul class="component-list">
+                            <li class="component-item">
+                                <span class="component-icon">●</span>
+                                <div class="component-text">
+                                    <div class="component-name">Solar Panel</div>
+                                    <div class="component-spec">400W monocrystalline panel</div>
+                                </div>
+                            </li>
+                            <li class="component-item">
+                                <span class="component-icon">●</span>
+                                <div class="component-text">
+                                    <div class="component-name">Battery Storage</div>
+                                    <div class="component-spec">48V LiFePO₄, 10kWh capacity</div>
+                                </div>
+                            </li>
+                            <li class="component-item">
+                                <span class="component-icon">●</span>
+                                <div class="component-text">
+                                    <div class="component-name">MPPT Controller</div>
+                                    <div class="component-spec">96% efficiency, temperature monitoring</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Sensor Network -->
+                <div class="subsystem-card scroll-in">
+                    <div class="subsystem-header">
+                        <div class="subsystem-icon">📊</div>
+                        <div class="subsystem-title">Sensor Network</div>
+                    </div>
+                    <div class="subsystem-content">
+                        <p class="subsystem-description">
+                            Real-time environmental monitoring with IoT integration.
+                        </p>
+                        <ul class="component-list">
+                            <li class="component-item">
+                                <span class="component-icon">●</span>
+                                <div class="component-text">
+                                    <div class="component-name">CO₂/SO₂ Sensors</div>
+                                    <div class="component-spec">NDIR technology, ±50ppm accuracy</div>
+                                </div>
+                            </li>
+                            <li class="component-item">
+                                <span class="component-icon">●</span>
+                                <div class="component-text">
+                                    <div class="component-name">PM Sensor</div>
+                                    <div class="component-spec">PM1, PM2.5, PM10 measurements</div>
+                                </div>
+                            </li>
+                            <li class="component-item">
+                                <span class="component-icon">●</span>
+                                <div class="component-text">
+                                    <div class="component-name">Environmental Sensors</div>
+                                    <div class="component-spec">Temperature, humidity, water level</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Circular Economy -->
+                <div class="subsystem-card scroll-in">
+                    <div class="subsystem-header">
+                        <div class="subsystem-icon">♻️</div>
+                        <div class="subsystem-title">Circular Economy Module</div>
+                    </div>
+                    <div class="subsystem-content">
+                        <p class="subsystem-description">
+                            Biomass collection and bio-fertilizer production system.
+                        </p>
+                        <ul class="component-list">
+                            <li class="component-item">
+                                <span class="component-icon">●</span>
+                                <div class="component-text">
+                                    <div class="component-name">Biomass Collection</div>
+                                    <div class="component-spec">Monthly harvest, 5-10kg per cycle</div>
+                                </div>
+                            </li>
+                            <li class="component-item">
+                                <span class="component-icon">●</span>
+                                <div class="component-text">
+                                    <div class="component-name">Processing Unit</div>
+                                    <div class="component-spec">Drying and composting system</div>
+                                </div>
+                            </li>
+                            <li class="component-item">
+                                <span class="component-icon">●</span>
+                                <div class="component-text">
+                                    <div class="component-name">Community Distribution</div>
+                                    <div class="component-spec">QR-tracked fertilizer packages</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Technical Specifications -->
+    <section class="subsystem-section" style="background: #f8f9fa;">
+        <div class="container">
+            <h2 class="section-title">Detailed Specifications</h2>
+
+            <!-- Air Quality System -->
+            <div class="expandable-section">
+                <div class="expandable-header" onclick="toggleExpandable(this)">
+                    <div class="expandable-title">
+                        <span class="expandable-title-icon">🌫️</span>
+                        <span>Air Quality System Specifications</span>
+                    </div>
+                    <span class="expand-toggle">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <table class="specs-table">
+                        <thead>
+                            <tr>
+                                <th>Component</th>
+                                <th>Specification</th>
+                                <th>Performance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Moss Layer Thickness</td>
+                                <td>15-20 cm</td>
+                                <td>PM2.5 capture: 95%</td>
+                            </tr>
+                            <tr>
+                                <td>Algae Culture Volume</td>
+                                <td>50 liters</td>
+                                <td>CO₂ conversion: 8.5kg/month</td>
+                            </tr>
+                            <tr>
+                                <td>Air Throughput</td>
+                                <td>2,000 m³/hour</td>
+                                <td>Monthly processing: 50,000m³</td>
+                            </tr>
+                            <tr>
+                                <td>Pollutant Removal</td>
+                                <td>Multi-stage</td>
+                                <td>PM10: 98%, PM2.5: 95%, SO₂: 90%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div style="margin-top: 2rem;">
+                        <h4 style="margin-bottom: 1rem;">Performance Metrics:</h4>
+                        <div class="performance-metric">
+                            <span>Moss Efficiency</span>
+                            <div class="metric-bar">
+                                <div class="metric-fill" style="width: 95%;"></div>
+                            </div>
+                            <span class="metric-percentage">95%</span>
+                        </div>
+                        <div class="performance-metric">
+                            <span>Algae Growth Rate</span>
+                            <div class="metric-bar">
+                                <div class="metric-fill" style="width: 88%;"></div>
+                            </div>
+                            <span class="metric-percentage">88%</span>
+                        </div>
+                        <div class="performance-metric">
+                            <span>System Uptime</span>
+                            <div class="metric-bar">
+                                <div class="metric-fill" style="width: 99.5%;"></div>
+                            </div>
+                            <span class="metric-percentage">99.5%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Water Generation System -->
+            <div class="expandable-section">
+                <div class="expandable-header" onclick="toggleExpandable(this)">
+                    <div class="expandable-title">
+                        <span class="expandable-title-icon">💧</span>
+                        <span>Water Generation System Specifications</span>
+                    </div>
+                    <span class="expand-toggle">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <table class="specs-table">
+                        <thead>
+                            <tr>
+                                <th>Component</th>
+                                <th>Specification</th>
+                                <th>Performance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Peltier Module</td>
+                                <td>TEC1-12706, 60W</td>
+                                <td>ΔT up to 67°C</td>
+                            </tr>
+                            <tr>
+                                <td>Water Generation</td>
+                                <td>70-150 liters/day</td>
+                                <td>Dependent on humidity & temperature</td>
+                            </tr>
+                            <tr>
+                                <td>Condensation Area</td>
+                                <td>2 m² collecting surface</td>
+                                <td>Optimized for vapor capture</td>
+                            </tr>
+                            <tr>
+                                <td>Filtration Stages</td>
+                                <td>3-stage + UV-C</td>
+                                <td>99.9% sterilization</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div style="margin-top: 2rem;">
+                        <div class="feature-badge">Solar Powered</div>
+                        <div class="feature-badge secondary">UV Sterilized</div>
+                        <div class="feature-badge tertiary">IoT Monitored</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Energy System -->
+            <div class="expandable-section">
+                <div class="expandable-header" onclick="toggleExpandable(this)">
+                    <div class="expandable-title">
+                        <span class="expandable-title-icon">⚡</span>
+                        <span>Energy System Specifications</span>
+                    </div>
+                    <span class="expand-toggle">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <table class="specs-table">
+                        <thead>
+                            <tr>
+                                <th>Component</th>
+                                <th>Specification</th>
+                                <th>Capacity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Solar Panel</td>
+                                <td>Monocrystalline, 400W</td>
+                                <td>Peak output: 400W, 25°C</td>
+                            </tr>
+                            <tr>
+                                <td>Battery System</td>
+                                <td>48V LiFePO₄</td>
+                                <td>10kWh storage capacity</td>
+                            </tr>
+                            <tr>
+                                <td>MPPT Controller</td>
+                                <td>80A continuous current</td>
+                                <td>96% efficiency</td>
+                            </tr>
+                            <tr>
+                                <td>System Load</td>
+                                <td>Avg 300W continuous</td>
+                                <td>Peak 800W (Peltier active)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div style="margin-top: 2rem;">
+                        <h4 style="margin-bottom: 1rem;">Daily Energy Profile:</h4>
+                        <div class="performance-metric">
+                            <span>Solar Generation</span>
+                            <div class="metric-bar">
+                                <div class="metric-fill" style="width: 85%;"></div>
+                            </div>
+                            <span class="metric-percentage">85%</span>
+                        </div>
+                        <div class="performance-metric">
+                            <span>Battery Efficiency</span>
+                            <div class="metric-bar">
+                                <div class="metric-fill" style="width: 92%;"></div>
+                            </div>
+                            <span class="metric-percentage">92%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sensor Network -->
+            <div class="expandable-section">
+                <div class="expandable-header" onclick="toggleExpandable(this)">
+                    <div class="expandable-title">
+                        <span class="expandable-title-icon">📊</span>
+                        <span>Sensor Network Specifications</span>
+                    </div>
+                    <span class="expand-toggle">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <table class="specs-table">
+                        <thead>
+                            <tr>
+                                <th>Sensor Type</th>
+                                <th>Model/Range</th>
+                                <th>Accuracy</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>CO₂ Sensor</td>
+                                <td>NDIR, 0-5000ppm</td>
+                                <td>±50ppm ±3% reading</td>
+                            </tr>
+                            <tr>
+                                <td>SO₂ Sensor</td>
+                                <td>Electrochemical, 0-500ppb</td>
+                                <td>±5ppb</td>
+                            </tr>
+                            <tr>
+                                <td>PM Sensor</td>
+                                <td>Laser-based, PM1/2.5/10</td>
+                                <td>±10% accuracy</td>
+                            </tr>
+                            <tr>
+                                <td>Temperature</td>
+                                <td>DS18B20, -55 to +125°C</td>
+                                <td>±0.5°C</td>
+                            </tr>
+                            <tr>
+                                <td>Humidity</td>
+                                <td>DHT22, 0-100%</td>
+                                <td>±2%</td>
+                            </tr>
+                            <tr>
+                                <td>Water Level</td>
+                                <td>Ultrasonic, 0-200cm</td>
+                                <td>±1cm</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>BioDigital System</h4>
+                    <p>Creating sustainable solutions for urban air and water regeneration.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="how-it-works.html">How It Works</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>Email: info@biodigital.com</p>
+                    <p>Phone: +1 (555) 123-4567</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Bio-Digital System. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script>
+        function toggleExpandable(header) {
+            const content = header.nextElementSibling;
+            header.classList.toggle('active');
+            content.classList.toggle('active');
+        }
+
+        // Initialize with first one open
+        window.addEventListener('load', function() {
+            const firstHeader = document.querySelector('.expandable-header');
+            if (firstHeader) {
+                firstHeader.click();
+            }
+        });
+    </script>
+</body>
+</html>

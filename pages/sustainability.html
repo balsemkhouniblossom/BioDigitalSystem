@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sustainability - Bio-Digital System</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <style>
+        .sustainability-section {
+            padding: 80px 20px;
+            background: white;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .impact-card {
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.05) 0%, rgba(52, 152, 219, 0.05) 100%);
+            border: 2px solid transparent;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .impact-card:hover {
+            border-color: #2ecc71;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(46, 204, 113, 0.2);
+        }
+
+        .impact-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .impact-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2ecc71;
+            margin-bottom: 0.5rem;
+        }
+
+        .impact-label {
+            font-size: 0.95rem;
+            color: var(--dark-text);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .impact-description {
+            font-size: 0.85rem;
+            color: var(--light-text);
+        }
+
+        .circular-flow {
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.1) 0%, rgba(52, 152, 219, 0.1) 100%);
+            border-radius: 15px;
+            padding: 3rem 2rem;
+            margin-top: 2rem;
+        }
+
+        .flow-diagram {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .flow-step {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            animation: slide-in-left 0.6s ease-out both;
+        }
+
+        .flow-step:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .flow-step:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .flow-step:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+
+        .flow-step:nth-child(5) {
+            animation-delay: 0.4s;
+        }
+
+        .flow-step:nth-child(6) {
+            animation-delay: 0.5s;
+        }
+
+        .step-icon {
+            font-size: 2.5rem;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .step-content {
+            flex: 1;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .step-title {
+            font-weight: 600;
+            color: var(--dark-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .step-description {
+            font-size: 0.9rem;
+            color: var(--light-text);
+        }
+
+        .community-section {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 3rem;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .community-section h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .community-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .community-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .community-item h4 {
+            margin-bottom: 0.5rem;
+        }
+
+        .community-item p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(180deg, #2ecc71, #3498db);
+            border-radius: 3px;
+        }
+
+        .timeline-item {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            text-align: right;
+            padding-right: 52%;
+        }
+
+        .timeline-item:nth-child(even) {
+            text-align: left;
+            padding-left: 52%;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: #2ecc71;
+            border: 3px solid white;
+            border-radius: 50%;
+            top: 0;
+            box-shadow: 0 0 0 3px #2ecc71;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline-content h4 {
+            color: var(--dark-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content p {
+            font-size: 0.9rem;
+            color: var(--light-text);
+        }
+
+        .biomass-process {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .process-box {
+            background: white;
+            border: 2px solid #2ecc71;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .process-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: #2ecc71;
+            color: white;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .process-box h4 {
+            color: var(--dark-text);
+            margin-bottom: 0.8rem;
+        }
+
+        .process-box p {
+            color: var(--light-text);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .flow-step {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item:nth-child(odd),
+            .timeline-item:nth-child(even) {
+                text-align: left;
+                padding-left: 60px;
+                padding-right: 0;
+            }
+
+            .timeline-marker {
+                left: 20px;
+            }
+
+            .community-section {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-icon">🌿</span>
+                <span>BioDigital System</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="how-it-works.html" class="nav-link">How It Works</a></li>
+                <li><a href="subsystems.html" class="nav-link">Subsystems</a></li>
+                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                <li><a href="sustainability.html" class="nav-link">Sustainability</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" style="margin-bottom: 2rem;">
+        <div class="hero-content" style="grid-template-columns: 1fr; text-align: center;">
+            <div class="hero-text">
+                <h1 class="hero-title">Sustainability & Circular Economy</h1>
+                <p class="hero-description">
+                    Creating positive environmental impact while building a circular economy through biomass 
+                    regeneration and community engagement.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Environmental Impact -->
+    <section class="sustainability-section">
+        <div class="container">
+            <h2 class="section-title">Environmental Impact Metrics</h2>
+            <p style="text-align: center; color: var(--light-text); margin-bottom: 2rem;">
+                Real-time measurement of positive environmental outcomes per active system
+            </p>
+            
+            <div class="impact-grid">
+                <div class="impact-card scroll-in">
+                    <div class="impact-icon">🌍</div>
+                    <div class="impact-value">8,500</div>
+                    <div class="impact-label">kg CO₂ Removed</div>
+                    <div class="impact-description">Monthly carbon capture through photosynthesis</div>
+                </div>
+
+                <div class="impact-card scroll-in">
+                    <div class="impact-icon">💨</div>
+                    <div class="impact-value">50,000</div>
+                    <div class="impact-label">m³ Air Purified</div>
+                    <div class="impact-description">Monthly air processing capacity</div>
+                </div>
+
+                <div class="impact-card scroll-in">
+                    <div class="impact-icon">💧</div>
+                    <div class="impact-value">4,500</div>
+                    <div class="impact-label">Liters Water Generated</div>
+                    <div class="impact-description">Monthly water collection and regeneration</div>
+                </div>
+
+                <div class="impact-card scroll-in">
+                    <div class="impact-icon">🌿</div>
+                    <div class="impact-value">5</div>
+                    <div class="impact-label">kg Bio-Fertilizer</div>
+                    <div class="impact-description">Monthly biomass production for communities</div>
+                </div>
+
+                <div class="impact-card scroll-in">
+                    <div class="impact-icon">⚡</div>
+                    <div class="impact-value">100%</div>
+                    <div class="impact-label">Renewable Energy</div>
+                    <div class="impact-description">Solar-powered with zero grid dependency</div>
+                </div>
+
+                <div class="impact-card scroll-in">
+                    <div class="impact-icon">👥</div>
+                    <div class="impact-value">∞</div>
+                    <div class="impact-label">Community Lives</div>
+                    <div class="impact-description">Scalable impact through citizen engagement</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Circular Economy Flow -->
+    <section class="sustainability-section" style="background: #f8f9fa;">
+        <div class="container">
+            <h2 class="section-title">Circular Economy Model</h2>
+            
+            <div class="circular-flow">
+                <div class="flow-diagram">
+                    <div class="flow-step">
+                        <div class="step-icon">💨</div>
+                        <div class="step-content">
+                            <div class="step-title">Step 1: Air Intake</div>
+                            <div class="step-description">
+                                Polluted urban air enters the system with CO₂, PM2.5, PM10, and acidic gases
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flow-step">
+                        <div class="step-icon">🔄</div>
+                        <div class="step-content">
+                            <div class="step-title">Step 2: Bio-Processing</div>
+                            <div class="step-description">
+                                Moss and algae bio-layers naturally clean the air while converting CO₂ to oxygen
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flow-step">
+                        <div class="step-icon">🌱</div>
+                        <div class="step-content">
+                            <div class="step-title">Step 3: Biomass Growth</div>
+                            <div class="step-description">
+                                Algae and moss accumulate as active biomass (5-10 kg per month)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flow-step">
+                        <div class="step-icon">✂️</div>
+                        <div class="step-content">
+                            <div class="step-title">Step 4: Harvest & Processing</div>
+                            <div class="step-description">
+                                Monthly biomass collection and processing into organic bio-fertilizer
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flow-step">
+                        <div class="step-icon">📦</div>
+                        <div class="step-content">
+                            <div class="step-title">Step 5: Community Distribution</div>
+                            <div class="step-description">
+                                QR-tracked fertilizer packages distributed to community gardens and farmers
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flow-step">
+                        <div class="step-icon">🌾</div>
+                        <div class="step-content">
+                            <div class="step-title">Step 6: Agricultural Use</div>
+                            <div class="step-description">
+                                Communities use bio-fertilizer to grow food, completing the sustainable cycle
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Biomass Processing -->
+    <section class="sustainability-section">
+        <div class="container">
+            <h2 class="section-title">Biomass Collection & Bio-Fertilizer Production</h2>
+            
+            <div class="biomass-process">
+                <div class="process-box">
+                    <div class="process-number">1</div>
+                    <h4>Monthly Harvest</h4>
+                    <p>5-10 kg of algae and moss biomass collected during system maintenance</p>
+                </div>
+
+                <div class="process-box">
+                    <div class="process-number">2</div>
+                    <h4>Drying Process</h4>
+                    <p>Solar-dried biomass to reduce moisture content and prevent decomposition</p>
+                </div>
+
+                <div class="process-box">
+                    <div class="process-number">3</div>
+                    <h4>Processing</h4>
+                    <p>Grinding and mixing with phosphate rock for nutrient enhancement</p>
+                </div>
+
+                <div class="process-box">
+                    <div class="process-number">4</div>
+                    <h4>Packaging</h4>
+                    <p>Portions into reusable containers with QR codes for traceability</p>
+                </div>
+
+                <div class="process-box">
+                    <div class="process-number">5</div>
+                    <h4>Quality Testing</h4>
+                    <p>Laboratory verification of nutrient content and safety standards</p>
+                </div>
+
+                <div class="process-box">
+                    <div class="process-number">6</div>
+                    <h4>Community Distribution</h4>
+                    <p>Delivered to local gardens, farmers, and environmental programs</p>
+                </div>
+            </div>
+
+            <div style="background: linear-gradient(135deg, rgba(46, 204, 113, 0.1) 0%, rgba(52, 152, 219, 0.1) 100%); border-radius: 15px; padding: 2rem; margin-top: 2rem; text-align: center;">
+                <h4 style="color: var(--dark-text); margin-bottom: 1rem;">Bio-Fertilizer Composition</h4>
+                <p style="color: var(--light-text); margin-bottom: 1rem;">
+                    Pure organic matter derived from algae and moss, enriched with phosphate rock
+                </p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;">
+                    <div>
+                        <strong style="color: #2ecc71; font-size: 1.1rem;">40%</strong>
+                        <p style="font-size: 0.85rem;">Nitrogen (N)</p>
+                    </div>
+                    <div>
+                        <strong style="color: #2ecc71; font-size: 1.1rem;">30%</strong>
+                        <p style="font-size: 0.85rem;">Phosphorus (P)</p>
+                    </div>
+                    <div>
+                        <strong style="color: #2ecc71; font-size: 1.1rem;">20%</strong>
+                        <p style="font-size: 0.85rem;">Potassium (K)</p>
+                    </div>
+                    <div>
+                        <strong style="color: #2ecc71; font-size: 1.1rem;">10%</strong>
+                        <p style="font-size: 0.85rem;">Trace Elements</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Engagement -->
+    <section class="sustainability-section" style="background: #f8f9fa;">
+        <div class="container">
+            <h2 class="section-title">Community Engagement & Citizen Science</h2>
+            
+            <div class="community-section">
+                <h3>Join the Movement</h3>
+                <p>Every system creates positive change through community participation and environmental awareness.</p>
+                
+                <div class="community-grid">
+                    <div class="community-item">
+                        <h4>📱 Citizen Reporting</h4>
+                        <p>Scan QR codes to report local air quality observations and contribute real-time data</p>
+                    </div>
+
+                    <div class="community-item">
+                        <h4>🌾 Fertilizer Access</h4>
+                        <p>Receive free bio-fertilizer for community gardens and personal growing projects</p>
+                    </div>
+
+                    <div class="community-item">
+                        <h4>📊 Data Sharing</h4>
+                        <p>Access real-time environmental data through our open platform</p>
+                    </div>
+
+                    <div class="community-item">
+                        <h4>👥 Collaboration</h4>
+                        <p>Partner with local organizations for expanded environmental programs</p>
+                    </div>
+
+                    <div class="community-item">
+                        <h4>🎓 Education</h4>
+                        <p>Educational workshops on sustainability, biology, and environmental science</p>
+                    </div>
+
+                    <div class="community-item">
+                        <h4>🏆 Recognition</h4>
+                        <p>Badges and certificates for active citizen science contributions</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Future Vision -->
+    <section class="sustainability-section">
+        <div class="container">
+            <h2 class="section-title">Vision for Scale & Impact</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h4>2025 - Foundation</h4>
+                        <p>12 active systems in pilot cities. 50 tons CO₂ captured. 1 million liters water generated.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h4>2026 - Expansion</h4>
+                        <p>50 systems across 5 cities. Community network established. 200+ tons CO₂ captured.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h4>2027 - Regional Growth</h4>
+                        <p>200 systems deployed. Partnership with municipalities. 1,000+ tons CO₂ captured.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h4>2028-2030 - Global Movement</h4>
+                        <p>1,000+ systems worldwide. Measurable urban air quality improvement. Circular economy normalized.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h4>2035+ - Transformation</h4>
+                        <p>10,000+ systems globally. Regenerated cities with clean air, fresh water, and thriving communities.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Be Part of the Sustainability Revolution</h2>
+            <p>Join communities worldwide building a sustainable future with Bio-Digital Systems.</p>
+            <div class="cta-buttons-main">
+                <button class="btn btn-primary" id="joinCommunityBtn">Join Community</button>
+                <button class="btn btn-secondary" id="learnMoreBtn">Learn More</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>BioDigital System</h4>
+                    <p>Creating sustainable solutions for urban air and water regeneration.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="how-it-works.html">How It Works</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>Email: info@biodigital.com</p>
+                    <p>Phone: +1 (555) 123-4567</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Bio-Digital System. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script>
+        document.getElementById('joinCommunityBtn').addEventListener('click', function() {
+            window.bioDigitalUtils.showNotification('Welcome to the community! Check your email for next steps.', 'success');
+        });
+
+        document.getElementById('learnMoreBtn').addEventListener('click', function() {
+            window.location.href = 'how-it-works.html';
+        });
+    </script>
+</body>
+</html>
